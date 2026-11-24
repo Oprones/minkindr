@@ -1,25 +1,25 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.16)
 project(minkindr)
 
-find_package(catkin_simple REQUIRED)
-catkin_simple(ALL_DEPS_REQUIRED)
+find_package(ament_cmake REQUIRED)
+find_package(Eigen3 REQUIRED)
 
-find_package(Threads)
-
-catkin_add_gtest(${PROJECT_NAME}_tests 
-  test/test-main.cc
-  test/test-rotation.cc
-  test/test-sim3.cc
-  test/test-transformation.cc
-  test/test-transformation-2d.cc
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME} INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(${PROJECT_NAME}_tests ${catkin_LIBRARIES} 
-                                            ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${PROJECT_NAME} INTERFACE Eigen3::Eigen)
 
-# Add all files to show up in QtCreator.
-FILE(GLOB_RECURSE LibFiles "include/*")
-add_custom_target(headers SOURCES ${LibFiles})
+install(TARGETS ${PROJECT_NAME}
+  EXPORT export_${PROJECT_NAME}
+)
 
-cs_install()
-cs_export()
+install(DIRECTORY include/
+  DESTINATION include
+)
 
+ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
+ament_export_include_directories(include)
+ament_export_dependencies(Eigen3)
+ament_package()
