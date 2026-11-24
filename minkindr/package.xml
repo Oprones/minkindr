@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<package>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>minkindr</name>
-  <version>1.0.0</version>
-  <description>minkindr</description>
+  <version>2.0.0</version>
+  <description>Header-only minimal Kindr (Eigen SE(3) / SO(3) / Sim(3)) library for ROS 2 Humble</description>
+  <maintainer email="suhan.park@oprones.com">Suhan Park</maintainer>
+  <license>BSD-3-Clause</license>
 
-  <maintainer email="paul.furgale@gmail.com">Paul Furgale</maintainer>
-  <license>BSD</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>eigen</depend>
+  <depend>libgoogle-glog-dev</depend>
 
-  <buildtool_depend>catkin</buildtool_depend>
-  <buildtool_depend>catkin_simple</buildtool_depend>
-
-  <build_depend>eigen_catkin</build_depend>
-  <build_depend>glog_catkin</build_depend>
-  <build_depend>eigen_checks</build_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>
-
